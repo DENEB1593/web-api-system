@@ -15,6 +15,10 @@ RUN gradle build --no-daemon -x test
 # run java application
 FROM eclipse-temurin:17-jre
 
+RUN useradd deneb
+USER deneb
+CMD ["whoami"]
+
 #RUN ./gradlew --version
 COPY --from=builder /app/build/libs/web-api-system-0.0.1-SNAPSHOT.jar ./
 

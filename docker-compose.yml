@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  nginx:
+    image: nginx:1.21.5-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    container_name: web-server
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: web-api
+    user: deneb
+    container_name: web-api-server
+    ports:
+      - "8080:8080"
